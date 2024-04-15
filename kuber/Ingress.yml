@@ -11,16 +11,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: therapist-serv
+            name: therapist-service
             port:
-              number: 80
+              number: 8000
       - path: /otusapp/aleksey/(.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: therapist-serv
+            name: therapist-service
             port:
-              number: 80
-    ports:
-    - port: 8000
-      protocol: TCP
+              number: 8000
