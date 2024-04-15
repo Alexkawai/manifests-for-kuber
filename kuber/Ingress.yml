@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: therapist-ingress
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+      - path: /otusapp/aleksey/
+        pathType: Prefix
+        backend:
+          service:
+            name: therapist-serv
+            port:
+              number: 80
+      - path: /otusapp/aleksey/(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: therapist-serv
+            port:
+              number: 80
+    ports:
+    - port: 8000
+      protocol: TCP
