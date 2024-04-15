@@ -2,22 +2,22 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: therapist-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^/health/?$ /health break;
+      rewrite ^/otusapp/aleksey/.* /health break;
+      return 404;
 spec:
   rules:
   - host: arch.homework
     http:
       paths:
-      - path: /otusapp/aleksey/
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: therapist-service
+            name: therapist-serv
             port:
               number: 8000
-      - path: /otusapp/aleksey/(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: therapist-service
-            port:
-              number: 8000
+     
